@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
+import java.util.Arrays;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -55,7 +56,11 @@ public class UtilidadesItems {
 				meta.setLore(lore);
 				
 		  	}
-		  	meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES,ItemFlag.HIDE_ENCHANTS,ItemFlag.HIDE_UNBREAKABLE,ItemFlag.HIDE_POTION_EFFECTS);
+		if (Arrays.stream(ItemFlag.values()).anyMatch(f -> f.name().equals("HIDE_POTION_EFFECTS"))) {
+			meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_UNBREAKABLE, ItemFlag.valueOf("HIDE_POTION_EFFECTS"));
+		} else {
+			meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_UNBREAKABLE);
+		}
 		  	if(Bukkit.getVersion().contains("1.15") || UtilidadesOtros.isNew()) {
 		  		meta.setUnbreakable(true);
 		  	}

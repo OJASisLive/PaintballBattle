@@ -2,7 +2,6 @@ package pb.ajneb97.managers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -105,7 +104,7 @@ public class CooldownKillstreaks {
 						l.getWorld().playEffect(l, org.bukkit.Effect.valueOf("VILLAGER_THUNDERCLOUD"), 1);
 					} else {
 						// KORREKT für Paper 1.13+ (einschließlich 1.21.5): VILLAGER_ANGRY
-						l.getWorld().spawnParticle(org.bukkit.Particle.VILLAGER_ANGRY, l, 1);
+						l.getWorld().spawnParticle(Particle.ANGRY_VILLAGER, l, 1);
 					}
 					return true;
 				} else {
@@ -118,7 +117,8 @@ public class CooldownKillstreaks {
 			return false;
 		}
 	}
-	
+
+
 	public void cooldownNuke(final JugadorPaintball jugador, final Partida partida, final String[] separados1, final String[] separados2){
 		this.jugador = jugador;
 		this.partida = partida;
