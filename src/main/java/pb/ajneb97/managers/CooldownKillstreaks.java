@@ -94,26 +94,27 @@ public class CooldownKillstreaks {
  		   }
  	   }, 0L, 5L);
 	}
-	
+
 	protected boolean ejecutarParticulasFury() {
-		if(partida != null && partida.getEstado().equals(EstadoPartida.JUGANDO)) {
-			if(jugador != null) {
-				if(jugador.getKillstreak("fury") != null) {
+		if (partida != null && partida.getEstado().equals(EstadoPartida.JUGANDO)) {
+			if (jugador != null) {
+				if (jugador.getKillstreak("fury") != null) {
 					Location l = jugador.getJugador().getLocation().clone();
-					l.setY(l.getY()+1.5);
-					if(Bukkit.getVersion().contains("1.8")) {
-						l.getWorld().playEffect(l, Effect.valueOf("VILLAGER_THUNDERCLOUD"),1);	
-					}else {
-						l.getWorld().spawnParticle(Particle.VILLAGER_ANGRY,l,1);
+					l.setY(l.getY() + 1.5);
+					if (Bukkit.getVersion().contains("1.8")) {
+						l.getWorld().playEffect(l, org.bukkit.Effect.valueOf("VILLAGER_THUNDERCLOUD"), 1);
+					} else {
+						// KORREKT für Paper 1.13+ (einschließlich 1.21.5): VILLAGER_ANGRY
+						l.getWorld().spawnParticle(org.bukkit.Particle.VILLAGER_ANGRY, l, 1);
 					}
 					return true;
-				}else {
+				} else {
 					return false;
 				}
-			}else {
+			} else {
 				return false;
 			}
-		}else {
+		} else {
 			return false;
 		}
 	}
