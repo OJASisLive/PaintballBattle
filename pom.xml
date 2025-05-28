@@ -5,7 +5,7 @@
 
     <groupId>pb.ajneb97</groupId>
     <artifactId>PaintballBattle</artifactId>
-    <version>1.0.0</version>
+    <version>1.11.3</version>
     <packaging>jar</packaging>
 
     <name>PaintballBattle</name>
