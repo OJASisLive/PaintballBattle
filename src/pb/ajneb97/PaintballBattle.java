@@ -162,6 +162,7 @@ public class PaintballBattle extends JavaPlugin {
 				break;
 			case "1.21":
 			case "1.21.1":
+			case "1.21.5":	
 				serverVersion = ServerVersion.v1_21_R1;
 				break;
 			default:
