@@ -46,7 +46,6 @@ import pb.ajneb97.juego.Partida;
 import pb.ajneb97.lib.titleapi.TitleAPI;
 import pb.ajneb97.utils.UtilidadesItems;
 import pb.ajneb97.utils.UtilidadesOtros;
-import pb.ajneb97.listener.PaintballListener;
 
 public class PartidaManager {
 
@@ -199,14 +198,15 @@ public class PartidaManager {
 	}
 	
 	public static void iniciarPartida(Partida partida,PaintballBattle plugin) {
+
 		partida.setEstado(EstadoPartida.JUGANDO);
+
 		FileConfiguration messages = plugin.getMessages();
 		FileConfiguration config = plugin.getConfig();
 		//String prefix = ChatColor.translateAlternateColorCodes('&', messages.getString("prefix"))+" ";
 		// Scoreboards für alle Spieler anzeigen
-		PaintballListener paintballListener = plugin.getPaintballListener();
-		partida.createScoreboardsForAllPlayers(paintballListener);
-		
+
+
 		if(plugin.getConfig().getString("choose_team_system").equals("true")) {
 			setTeams(partida);
 		}else {
@@ -705,9 +705,7 @@ public class PartidaManager {
 		FileConfiguration config = plugin.getConfig();
 		ArrayList<JugadorPaintball> jugadores = partida.getJugadores();
 		// Scoreboards für alle Spieler entfernen
-		PaintballListener paintballListener = plugin.getPaintballListener();
-		partida.removeScoreboardsForAllPlayers(paintballListener);
-		for(JugadorPaintball j : jugadores) {	
+	for(JugadorPaintball j : jugadores) {
 			String tipoFin = "";
 			if(ganadorEquipo != null) {
 				Equipo equipoJugador = partida.getEquipoJugador(j.getJugador().getName());

@@ -709,77 +709,55 @@ public abstract class FastBoardBase<T> {
     protected void sendTeamPacket(int score, TeamMode mode) throws Throwable {
         // NICHTS MEHR TUN! Team-Optionen werden per Bukkit-API gesetzt.
     }
-    protected void sendTeamPacket(int score, TeamMode mode, T prefix, T suffix) throws Throwable {
-        // NICHTS MEHR TUN! Team-Optionen werden per Bukkit-API gesetzt.
+
+    private String getVisibilityStringForCurrentVersion() {
+        String bukkitVersion = Bukkit.getServer().getBukkitVersion();
+        if(bukkitVersion.startsWith("1.21.4")) {
+            return "ALWAYS"; // Großbuchstaben für 1.21.4
+        }
+        return "always";
     }
 
-//    protected void sendTeamPacket(int score, TeamMode mode) throws Throwable {
-//        sendTeamPacket(score, mode, null, null);
-//    }
-//
-//    // Gibt das richtige Visibility-Objekt (Enum oder String-Fallback für uralte Versionen)
-//    private Object getVisibilityValue() throws Exception {
-//        try {
-//            Class<?> enumClass = Class.forName("net.minecraft.world.scores.Team$Visibility");
-//            return Enum.valueOf((Class<Enum>) enumClass, "ALWAYS");
-//        } catch (Throwable t) {
-//            return "ALWAYS";
-//        }
-//    }
-//
-//    // Gibt das richtige CollisionRule-Objekt (Enum oder String-Fallback für uralte Versionen)
-//    private Object getCollisionRuleValue() throws Exception {
-//        try {
-//            Class<?> enumClass = Class.forName("net.minecraft.world.scores.Team$CollisionRule");
-//            return Enum.valueOf((Class<Enum>) enumClass, "ALWAYS");
-//        } catch (Throwable t) {
-//            return "ALWAYS";
-//        }
-//    }
-//
-//    protected void sendTeamPacket(int score, TeamMode mode, T prefix, T suffix) throws Throwable {
-//        if (mode == TeamMode.ADD_PLAYERS || mode == TeamMode.REMOVE_PLAYERS) {
-//            throw new UnsupportedOperationException();
-//        }
-//
-//        Object packet = PACKET_SB_TEAM.invoke();
-//
-//        setField(packet, String.class, this.id + ':' + score); // Team name
-//        setField(packet, int.class, mode.ordinal(), VERSION_TYPE == VersionType.V1_8 ? 1 : 0); // Update mode
-//
-//        if (mode == TeamMode.REMOVE) {
-//            sendPacket(packet);
-//            return;
-//        }
-//
-//        Object visibilityValue = getVisibilityValue();
-//        Object collisionValue = getCollisionRuleValue();
-//
-//        if (VersionType.V1_17.isHigherOrEqual()) {
-//            Object team = PACKET_SB_SERIALIZABLE_TEAM.invoke();
-//            setComponentField(team, null, 0); // Display name
-//            setField(team, CHAT_FORMAT_ENUM, RESET_FORMATTING);
-//            setComponentField(team, prefix, 1);
-//            setComponentField(team, suffix, 2);
-//
-//            // Setze beide Felder mit dem richtigen Typ!
-//            setField(team, visibilityValue.getClass(), visibilityValue, 0); // Visibility
-//            setField(team, collisionValue.getClass(), collisionValue, 1);   // CollisionRule
-//
-//            setField(packet, Optional.class, Optional.of(team));
-//        } else {
-//            setComponentField(packet, prefix, 2);
-//            setComponentField(packet, suffix, 3);
-//            setField(packet, visibilityValue.getClass(), visibilityValue, 4);
-//            setField(packet, collisionValue.getClass(), collisionValue, 5);
-//        }
-//
-//        if (mode == TeamMode.CREATE) {
-//            setField(packet, Collection.class, Collections.singletonList(COLOR_CODES[score])); // Players in the team
-//        }
-//
-//        sendPacket(packet);
-//    }
+    protected void sendTeamPacket(int score, TeamMode mode, T prefix, T suffix)
+            throws Throwable {
+        if (mode == TeamMode.ADD_PLAYERS || mode == TeamMode.REMOVE_PLAYERS) {
+            throw new UnsupportedOperationException();
+        }
+
+        Object packet = PACKET_SB_TEAM.invoke();
+
+        setField(packet, String.class, this.id + ':' + score); // Team name
+        setField(packet, int.class, mode.ordinal(), VERSION_TYPE == VersionType.V1_8 ? 1 : 0); // Update mode
+
+        if (mode == TeamMode.REMOVE) {
+            sendPacket(packet);
+            return;
+        }
+
+        if (VersionType.V1_17.isHigherOrEqual()) {
+            Object team = PACKET_SB_SERIALIZABLE_TEAM.invoke();
+            // Since the packet is initialized with null values, we need to change more things.
+            setComponentField(team, null, 0); // Display name
+            setField(team, CHAT_FORMAT_ENUM, RESET_FORMATTING); // Color
+            setComponentField(team, prefix, 1); // Prefix
+            setComponentField(team, suffix, 2); // Suffix
+            String visibilityValue = getVisibilityStringForCurrentVersion();
+            setField(team, String.class, "always", 0); // Visibility
+            setField(team, String.class, "always", 1); // Collisions
+            setField(packet, Optional.class, Optional.of(team));
+        } else {
+            setComponentField(packet, prefix, 2); // Prefix
+            setComponentField(packet, suffix, 3); // Suffix
+            setField(packet, String.class, "always", 4); // Visibility für 1.8+
+            setField(packet, String.class, "always", 5); // Collisions für 1.9+
+        }
+
+        if (mode == TeamMode.CREATE) {
+            setField(packet, Collection.class, Collections.singletonList(COLOR_CODES[score])); // Players in the team
+        }
+
+        sendPacket(packet);
+    }
 
     private void sendPacket(Object packet) throws Throwable {
         if (this.deleted) {

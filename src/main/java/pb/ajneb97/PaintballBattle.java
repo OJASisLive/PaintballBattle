@@ -54,7 +54,6 @@ import pb.ajneb97.managers.ScoreboardAdmin;
 import pb.ajneb97.managers.TopHologram;
 import pb.ajneb97.managers.TopHologramAdmin;
 import pb.ajneb97.utils.ServerVersion;
-import pb.ajneb97.listener.PaintballListener;
 
 
 public class PaintballBattle extends JavaPlugin {
@@ -87,7 +86,7 @@ public class PaintballBattle extends JavaPlugin {
 	private TopHologramAdmin hologramasTask;
 	
 	private ConexionDatabase conexionDatabase;
-	private PaintballListener paintballListener; // <<<<<< HINZUGEFÜGT
+
 
 	public static ServerVersion serverVersion;
 	
@@ -137,10 +136,6 @@ public class PaintballBattle extends JavaPlugin {
 	   Bukkit.getConsoleSender().sendMessage(prefix+ChatColor.YELLOW + "Has been enabled! " + ChatColor.WHITE + "Version: " + version);
 	   Bukkit.getConsoleSender().sendMessage(prefix+ChatColor.YELLOW + "Thanks for using my plugin!  " + ChatColor.WHITE + "~Ajneb97");
 	   updateChecker();
-	}
-
-	public PaintballListener getPaintballListener() {
-		return paintballListener;
 	}
 
 	public void onDisable(){
