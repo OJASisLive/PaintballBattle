@@ -727,6 +727,8 @@ public abstract class FastBoardBase<T> {
             return;
         }
 
+        String visibilityValue = getVisibilityStringForCurrentVersion();
+
         if (VersionType.V1_17.isHigherOrEqual()) {
             Object team = PACKET_SB_SERIALIZABLE_TEAM.invoke();
             // Since the packet is initialized with null values, we need to change more things.
@@ -734,7 +736,6 @@ public abstract class FastBoardBase<T> {
             setField(team, CHAT_FORMAT_ENUM, RESET_FORMATTING); // Color
             setComponentField(team, prefix, 1); // Prefix
             setComponentField(team, suffix, 2); // Suffix
-            String visibilityValue = getVisibilityStringForCurrentVersion();
             setField(team, String.class, "always", 0); // Visibility
             setField(team, String.class, "always", 1); // Collisions
             setField(packet, Optional.class, Optional.of(team));
@@ -756,7 +757,7 @@ public abstract class FastBoardBase<T> {
         // Annahme: Du hast irgendwo einen Zugriff auf die Serverversion,
         // z. B. als String oder Enum. Passe dies ggf. an!
         String bukkitVersion = Bukkit.getServer().getBukkitVersion();
-        if(bukkitVersion.startsWith("1.21.4")) {
+        if(bukkitVersion.startsWith("1.21")) {
             return "ALWAYS"; // Großbuchstaben für 1.21.4
         }
         // In den meisten anderen Versionen ist es "always"
