@@ -28,6 +28,7 @@ package pb.ajneb97.lib.fastboard;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Team;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
@@ -741,9 +742,18 @@ public abstract class FastBoardBase<T> {
             setField(team, CHAT_FORMAT_ENUM, RESET_FORMATTING); // Color
             setComponentField(team, prefix, 1); // Prefix
             setComponentField(team, suffix, 2); // Suffix
-            String visibilityValue = getVisibilityStringForCurrentVersion();
-            setField(team, String.class, "always", 0); // Visibility
-            setField(team, String.class, "always", 1); // Collisions
+
+            // Visible fix for 1.21.5
+            Class<?> visibilityClass = Class.forName("net.minecraft.world.scores.Team$Visibility");
+            Object visibilityEnum = Enum.valueOf((Class<Enum>) visibilityClass, "ALWAYS");
+            setField(team, visibilityClass, visibilityEnum, 0);
+            //setField(team, String.class, "always", 0); // Visibility
+
+            Class<?> collisionClass = Class.forName("net.minecraft.world.scores.Team$CollisionRule");
+            Object collisionEnum = Enum.valueOf((Class<Enum>) collisionClass, "ALWAYS");
+            setField(team, collisionClass, collisionEnum, 0);
+            //setField(team, String.class, "always", 1); // Collisions
+
             setField(packet, Optional.class, Optional.of(team));
         } else {
             setComponentField(packet, prefix, 2); // Prefix
