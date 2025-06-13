@@ -162,6 +162,7 @@ public class PaintballBattle extends JavaPlugin {
 				break;
 			case "1.21":
 			case "1.21.1":
+			case "1.21.4":
 			case "1.21.5":	
 				serverVersion = ServerVersion.v1_21_R1;
 				break;
@@ -238,6 +239,7 @@ public class PaintballBattle extends JavaPlugin {
 	
 	public void registerCommands(){
 		this.getCommand("paintball").setExecutor(new Comando(this));
+		this.getCommand("paintball").setTabCompleter(new ComandoTabCompleter(this)); // TabCompleter hinzufügen
 	}
 	
 	public Partida getPartidaJugador(String jugador) {

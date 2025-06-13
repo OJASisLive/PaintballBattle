@@ -25,6 +25,7 @@
 package pb.ajneb97.lib.fastboard;
 
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -733,14 +734,15 @@ public abstract class FastBoardBase<T> {
             setField(team, CHAT_FORMAT_ENUM, RESET_FORMATTING); // Color
             setComponentField(team, prefix, 1); // Prefix
             setComponentField(team, suffix, 2); // Suffix
+            String visibilityValue = getVisibilityStringForCurrentVersion();
             setField(team, String.class, "always", 0); // Visibility
             setField(team, String.class, "always", 1); // Collisions
             setField(packet, Optional.class, Optional.of(team));
         } else {
             setComponentField(packet, prefix, 2); // Prefix
             setComponentField(packet, suffix, 3); // Suffix
-            setField(packet, String.class, "always", 4); // Visibility for 1.8+
-            setField(packet, String.class, "always", 5); // Collisions for 1.9+
+            setField(packet, String.class, "always", 4); // Visibility für 1.8+
+            setField(packet, String.class, "always", 5); // Collisions für 1.9+
         }
 
         if (mode == TeamMode.CREATE) {
@@ -748,6 +750,17 @@ public abstract class FastBoardBase<T> {
         }
 
         sendPacket(packet);
+    }
+
+    private String getVisibilityStringForCurrentVersion() {
+        // Annahme: Du hast irgendwo einen Zugriff auf die Serverversion,
+        // z. B. als String oder Enum. Passe dies ggf. an!
+        String bukkitVersion = Bukkit.getServer().getBukkitVersion();
+        if(bukkitVersion.startsWith("1.21.4")) {
+            return "ALWAYS"; // Großbuchstaben für 1.21.4
+        }
+        // In den meisten anderen Versionen ist es "always"
+        return "always";
     }
 
     private void sendPacket(Object packet) throws Throwable {
