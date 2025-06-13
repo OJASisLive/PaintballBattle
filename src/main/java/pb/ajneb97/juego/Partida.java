@@ -5,6 +5,8 @@ import java.util.Random;
 
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
+import pb.ajneb97.listener.PaintballListener;
 
 
 
@@ -37,7 +39,32 @@ public class Partida {
 		this.vidasIniciales = vidasIniciales;
 		this.enNuke = false;
 	}
-	
+
+	// <<<<<< NEU: Scoreboards für alle Spieler erstellen
+	public void createScoreboardsForAllPlayers(PaintballListener paintballListener) {
+		for(JugadorPaintball spieler : getJugadores()) {
+			Player player = spieler.getJugador();
+			paintballListener.createGameBoard(
+					player,
+					"InGame", // ggf. dynamisch anpassen
+					team1.getTipo(), team1.getVidas(),
+					team2.getTipo(), team2.getVidas(),
+					spieler.getAsesinatos(),
+					getNombre(),
+					getCantidadActualJugadores(),
+					getCantidadMaximaJugadores()
+			);
+		}
+	}
+
+	// <<<<<< NEU: Scoreboards für alle Spieler entfernen
+	public void removeScoreboardsForAllPlayers(PaintballListener paintballListener) {
+		for(JugadorPaintball spieler : getJugadores()) {
+			Player player = spieler.getJugador();
+			paintballListener.removeGameBoard(player);
+		}
+	}
+
 	public boolean isEnNuke() {
 		return enNuke;
 	}
