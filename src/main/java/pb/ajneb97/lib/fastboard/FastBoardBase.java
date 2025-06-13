@@ -711,8 +711,27 @@ public abstract class FastBoardBase<T> {
         sendTeamPacket(score, mode, null, null);
     }
 
-    protected void sendTeamPacket(int score, TeamMode mode, T prefix, T suffix)
-            throws Throwable {
+    // Gibt das richtige Visibility-Objekt
+    private Object getVisibilityValue() throws Exception {
+        String version = org.bukkit.Bukkit.getServer().getBukkitVersion();
+        if (version.startsWith("1.21.5")) {
+            Class<?> enumClass = Class.forName("net.minecraft.world.scores.Team$Visibility");
+            return Enum.valueOf((Class<Enum>) enumClass, "ALWAYS");
+        }
+        return "ALWAYS";
+    }
+
+    // Gibt das richtige CollisionRule-Objekt
+    private Object getCollisionRuleValue() throws Exception {
+        String version = org.bukkit.Bukkit.getServer().getBukkitVersion();
+        if (version.startsWith("1.21.5")) {
+            Class<?> enumClass = Class.forName("net.minecraft.world.scores.Team$CollisionRule");
+            return Enum.valueOf((Class<Enum>) enumClass, "ALWAYS");
+        }
+        return "always";
+    }
+
+    protected void sendTeamPacket(int score, TeamMode mode, T prefix, T suffix) throws Throwable {
         if (mode == TeamMode.ADD_PLAYERS || mode == TeamMode.REMOVE_PLAYERS) {
             throw new UnsupportedOperationException();
         }
@@ -727,23 +746,26 @@ public abstract class FastBoardBase<T> {
             return;
         }
 
-        String visibilityValue = getVisibilityStringForCurrentVersion();
+        Object visibilityValue = getVisibilityValue();
+        Object collisionValue = getCollisionRuleValue();
 
         if (VersionType.V1_17.isHigherOrEqual()) {
             Object team = PACKET_SB_SERIALIZABLE_TEAM.invoke();
-            // Since the packet is initialized with null values, we need to change more things.
             setComponentField(team, null, 0); // Display name
-            setField(team, CHAT_FORMAT_ENUM, RESET_FORMATTING); // Color
-            setComponentField(team, prefix, 1); // Prefix
-            setComponentField(team, suffix, 2); // Suffix
-            setField(team, String.class, "always", 0); // Visibility
-            setField(team, String.class, "always", 1); // Collisions
+            setField(team, CHAT_FORMAT_ENUM, RESET_FORMATTING);
+            setComponentField(team, prefix, 1);
+            setComponentField(team, suffix, 2);
+
+            // Setze beide Felder mit dem richtigen Typ!
+            setField(team, visibilityValue.getClass(), visibilityValue, 0); // Visibility
+            setField(team, collisionValue.getClass(), collisionValue, 1);   // CollisionRule
+
             setField(packet, Optional.class, Optional.of(team));
         } else {
-            setComponentField(packet, prefix, 2); // Prefix
-            setComponentField(packet, suffix, 3); // Suffix
-            setField(packet, String.class, "always", 4); // Visibility für 1.8+
-            setField(packet, String.class, "always", 5); // Collisions für 1.9+
+            setComponentField(packet, prefix, 2);
+            setComponentField(packet, suffix, 3);
+            setField(packet, visibilityValue.getClass(), visibilityValue, 4);
+            setField(packet, collisionValue.getClass(), collisionValue, 5);
         }
 
         if (mode == TeamMode.CREATE) {
@@ -751,17 +773,6 @@ public abstract class FastBoardBase<T> {
         }
 
         sendPacket(packet);
-    }
-
-    private String getVisibilityStringForCurrentVersion() {
-        // Annahme: Du hast irgendwo einen Zugriff auf die Serverversion,
-        // z. B. als String oder Enum. Passe dies ggf. an!
-        String bukkitVersion = Bukkit.getServer().getBukkitVersion();
-        if(bukkitVersion.startsWith("1.21")) {
-            return "ALWAYS"; // Großbuchstaben für 1.21.4
-        }
-        // In den meisten anderen Versionen ist es "always"
-        return "always";
     }
 
     private void sendPacket(Object packet) throws Throwable {
