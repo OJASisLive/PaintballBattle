@@ -13,6 +13,7 @@ import pb.ajneb97.juego.EstadoPartida;
 import pb.ajneb97.juego.JugadorPaintball;
 import pb.ajneb97.juego.Killstreak;
 import pb.ajneb97.juego.Partida;
+import pb.ajneb97.utils.ValueOfPatch;
 
 public class CooldownKillstreaks {
 
@@ -44,7 +45,7 @@ public class CooldownKillstreaks {
 					jugador.getJugador().sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getString("killstreakExpired").replace("%killstreak%", name)));
 					String[] separados = config.getString("expireKillstreakSound").split(";");
 					try {
-						Sound sound = Sound.valueOf(separados[0]);
+						Sound sound = ValueOfPatch.valueOf(separados[0]);
 						jugador.getJugador().playSound(jugador.getJugador().getLocation(), sound, Float.valueOf(separados[1]), Float.valueOf(separados[2]));
 					}catch(Exception ex) {
 						Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', PaintballBattle.prefix+"&7Sound Name: &c"+separados[0]+" &7is not valid."));
@@ -144,7 +145,7 @@ public class CooldownKillstreaks {
 			if(jugador != null) {
 				if(tiempo <= 0) {
 					try {
-						Sound sound = Sound.valueOf(separados2[0]);
+						Sound sound = ValueOfPatch.valueOf(separados2[0]);
 						if(separados2.length >= 4) {
 							if(separados2[3].equalsIgnoreCase("global")) {
 								for(JugadorPaintball player : partida.getJugadores()) {
@@ -166,7 +167,7 @@ public class CooldownKillstreaks {
 					return false;
 				}else {
 					try {
-						Sound sound = Sound.valueOf(separados1[0]);
+						Sound sound = ValueOfPatch.valueOf(separados1[0]);
 						if(separados1.length >= 4) {
 							if(separados1[3].equalsIgnoreCase("global")) {
 								for(JugadorPaintball player : partida.getJugadores()) {

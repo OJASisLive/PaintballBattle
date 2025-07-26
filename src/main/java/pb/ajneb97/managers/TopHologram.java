@@ -3,13 +3,13 @@ package pb.ajneb97.managers;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.decentsoftware.holograms.api.DHAPI;
+import eu.decentsoftware.holograms.api.holograms.Hologram;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import me.filoghost.holographicdisplays.api.HolographicDisplaysAPI;
-import me.filoghost.holographicdisplays.api.hologram.Hologram;
-import me.filoghost.holographicdisplays.api.hologram.VisibilitySettings;
+
 
 import pb.ajneb97.PaintballBattle;
 import pb.ajneb97.database.MySQL;
@@ -31,7 +31,7 @@ public class TopHologram {
 		this.yOriginal = location.getY();
 		Location nuevaLoc = location.clone();
 		nuevaLoc.setY(nuevaLoc.getY() + UtilidadesHologramas.determinarY(nuevaLoc, UtilidadesHologramas.getCantidadLineasHolograma(plugin)) + 1.4);
-		this.hologram = HolographicDisplaysAPI.get(plugin).createHologram(nuevaLoc);
+		this.hologram = DHAPI.createHologram(name, nuevaLoc, true);
 	}
 
 	public String getPeriod() {
@@ -52,7 +52,8 @@ public class TopHologram {
 		final int topPlayersMax = Integer.valueOf(config.getString("top_hologram_number_of_players"));
 		List<String> lineas = messages.getStringList("topHologramFormat");
 
-		this.hologram.getVisibilitySettings().setGlobalVisibility(VisibilitySettings.Visibility.VISIBLE);
+		hologram.setDefaultVisibleState(true);
+		//this.hologram.getVisibilitySettings().setGlobalVisibility(VisibilitySettings.Visibility.VISIBLE);
 
 		String typeName = "";
 		String periodName = "";
@@ -81,7 +82,7 @@ public class TopHologram {
 								int num = c + 1;
 								try {
 									String[] separados = playersList.get(c).split(";");
-									hologram.getLines().appendText(ChatColor.translateAlternateColorCodes('&', lineaMessage
+									DHAPI.addHologramLine(hologram,ChatColor.translateAlternateColorCodes('&', lineaMessage
 											.replace("%position%", String.valueOf(num))
 											.replace("%name%", separados[0])
 											.replace("%points%", separados[1])));
@@ -99,10 +100,10 @@ public class TopHologram {
 								int num = c + 1;
 								try {
 									String[] separados = playersList.get(c).split(";");
-									hologram.getLines().appendText(ChatColor.translateAlternateColorCodes('&', lineaMessage
+									DHAPI.addHologramLine(hologram,(ChatColor.translateAlternateColorCodes('&', lineaMessage
 											.replace("%position%", String.valueOf(num))
 											.replace("%name%", separados[0])
-											.replace("%points%", separados[1])));
+											.replace("%points%", separados[1]))));
 								} catch (Exception e) {
 									break;
 								}
@@ -111,18 +112,21 @@ public class TopHologram {
 					});
 				}
 			} else {
-				hologram.getLines().appendText(ChatColor.translateAlternateColorCodes('&', linea));
+				DHAPI.addHologramLine(hologram, ChatColor.translateAlternateColorCodes('&', linea));
+				//hologram.getLines().appendText(ChatColor.translateAlternateColorCodes('&', linea));
 			}
 		}
 	}
 
 	public void actualizar(PaintballBattle plugin) {
-		Location loc = this.hologram.getPosition().toLocation();
+		//Location loc = this.hologram.getPosition().toLocation();
+		Location loc = this.hologram.getLocation();
 		removeHologram();
 		loc.setY(yOriginal);
 		Location nuevaLoc = loc.clone();
 		nuevaLoc.setY(nuevaLoc.getY() + UtilidadesHologramas.determinarY(nuevaLoc, UtilidadesHologramas.getCantidadLineasHolograma(plugin)) + 1.4);
-		this.hologram = HolographicDisplaysAPI.get(plugin).createHologram(nuevaLoc);
+		//this.hologram = HolographicDisplaysAPI.get(plugin).createHologram(nuevaLoc);
+		this.hologram = DHAPI.createHologram(name,nuevaLoc);
 		spawnHologram(plugin);
 	}
 

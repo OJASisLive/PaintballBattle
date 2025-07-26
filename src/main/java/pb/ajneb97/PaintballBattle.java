@@ -15,7 +15,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -787,7 +786,7 @@ public class PaintballBattle extends JavaPlugin {
 				FileConfiguration holograms = getHolograms();
 				holograms.set("Holograms", null);
 				for(int i=0;i<topHologramas.size();i++) {
-					Location l = topHologramas.get(i).getHologram().getPosition().toLocation();
+					Location l = topHologramas.get(i).getHologram().getLocation();
 					String name = topHologramas.get(i).getName();
 					String type = topHologramas.get(i).getType();
 					String period = topHologramas.get(i).getPeriod();

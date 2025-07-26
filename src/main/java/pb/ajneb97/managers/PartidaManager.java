@@ -5,9 +5,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
@@ -46,6 +43,7 @@ import pb.ajneb97.juego.Partida;
 import pb.ajneb97.lib.titleapi.TitleAPI;
 import pb.ajneb97.utils.UtilidadesItems;
 import pb.ajneb97.utils.UtilidadesOtros;
+import pb.ajneb97.utils.ValueOfPatch;
 
 public class PartidaManager {
 
@@ -223,7 +221,7 @@ public class PartidaManager {
 		float volume = 0;
 		float pitch = 0;
 		try {
-			sound = Sound.valueOf(separados[0]);
+			sound = ValueOfPatch.valueOf(separados[0]);
 			volume = Float.valueOf(separados[1]);
 			pitch = Float.valueOf(separados[2]);
 		}catch(Exception ex) {
@@ -770,7 +768,7 @@ public class PartidaManager {
 		jugadorDañado.getJugador().sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getString("killedBy").replace("%player%", jugadorAtacante.getJugador().getName())));
 		String[] separados = config.getString("killedBySound").split(";");
 		try {
-			Sound sound = Sound.valueOf(separados[0]);
+			Sound sound = ValueOfPatch.valueOf(separados[0]);
 			jugadorDañado.getJugador().playSound(jugadorDañado.getJugador().getLocation(), sound, Float.valueOf(separados[1]), Float.valueOf(separados[2]));
 		}catch(Exception ex) {
 			Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', PaintballBattle.prefix+"&7Sound Name: &c"+separados[0]+" &7is not valid."));
@@ -791,7 +789,7 @@ public class PartidaManager {
 				}
 				separados = config.getString("explosiveHatSound").split(";");
 				try {
-					Sound sound = Sound.valueOf(separados[0]);
+					Sound sound = ValueOfPatch.valueOf(separados[0]);
 					jugadorDañado.getJugador().getWorld().playSound(jugadorDañado.getJugador().getLocation(), sound, Float.valueOf(separados[1]), Float.valueOf(separados[2]));
 				}catch(Exception ex) {
 					Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', PaintballBattle.prefix+"&7Sound Name: &c"+separados[0]+" &7is not valid."));
@@ -855,7 +853,7 @@ public class PartidaManager {
 		if(!nuke) {
 			separados = config.getString("killSound").split(";");
 			try {
-				Sound sound = Sound.valueOf(separados[0]);
+				Sound sound = ValueOfPatch.valueOf(separados[0]);
 				jugadorAtacante.getJugador().playSound(jugadorAtacante.getJugador().getLocation(), sound, Float.valueOf(separados[1]), Float.valueOf(separados[2]));
 			}catch(Exception ex) {
 				Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', PaintballBattle.prefix+"&7Sound Name: &c"+separados[0]+" &7is not valid."));

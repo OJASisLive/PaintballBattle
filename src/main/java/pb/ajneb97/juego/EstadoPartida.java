@@ -5,5 +5,5 @@ public enum EstadoPartida {
 	COMENZANDO,
 	JUGANDO,
 	TERMINANDO,
-	DESACTIVADA;
+	DESACTIVADA
 }

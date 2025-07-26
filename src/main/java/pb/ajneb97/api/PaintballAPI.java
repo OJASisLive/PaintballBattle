@@ -9,7 +9,6 @@ import pb.ajneb97.PaintballBattle;
 import pb.ajneb97.database.JugadorDatos;
 import pb.ajneb97.database.MySQL;
 import pb.ajneb97.juego.EstadoPartida;
-import pb.ajneb97.juego.JugadorPaintballDatos;
 import pb.ajneb97.juego.Partida;
 
 public class PaintballAPI {

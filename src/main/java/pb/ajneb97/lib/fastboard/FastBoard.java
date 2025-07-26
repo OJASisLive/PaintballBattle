@@ -34,7 +34,6 @@ import java.util.Objects;
 /**
  * {@inheritDoc}
  */
-
 public class FastBoard extends FastBoardBase<String> {
 
     private static final MethodHandle MESSAGE_FROM_STRING;
@@ -123,8 +122,8 @@ public class FastBoard extends FastBoardBase<String> {
 
         if (prefix.length() > maxLength || suffix.length() > maxLength) {
             // Something went wrong, just cut to prevent client crash/kick
-            prefix = prefix.substring(0, maxLength);
-            suffix = suffix.substring(0, maxLength);
+            prefix = prefix.substring(0, Math.min(maxLength, prefix.length()));
+            suffix = suffix.substring(0, Math.min(maxLength, suffix.length()));
         }
 
         sendTeamPacket(score, TeamMode.UPDATE, prefix, suffix);

@@ -5,7 +5,7 @@
 
     <groupId>pb.ajneb97</groupId>
     <artifactId>PaintballBattle</artifactId>
-    <version>1.11.3</version>
+    <version>1.12.3</version>
     <packaging>jar</packaging>
 
     <name>PaintballBattle</name>
@@ -13,8 +13,8 @@
     <url>https://github.com/Leahcimkrob/PaintballBattle</url>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -73,10 +73,17 @@
         </dependency>
 
         <!-- HolographicDisplays API -->
+<!--        <dependency>-->
+<!--            <groupId>me.filoghost.holographicdisplays</groupId>-->
+<!--            <artifactId>holographicdisplays-api</artifactId>-->
+<!--            <version>3.0.0</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
+
         <dependency>
-            <groupId>me.filoghost.holographicdisplays</groupId>
-            <artifactId>holographicdisplays-api</artifactId>
-            <version>3.0.0</version>
+            <groupId>com.github.decentsoftware-eu</groupId>
+            <artifactId>decentholograms</artifactId>
+            <version>2.9.6</version>
             <scope>provided</scope>
         </dependency>
 

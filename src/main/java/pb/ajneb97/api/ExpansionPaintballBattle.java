@@ -1,7 +1,5 @@
 package pb.ajneb97.api;
 
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
@@ -88,7 +86,7 @@ public class ExpansionPaintballBattle extends PlaceholderExpansion {
      * <br>Since version 2.9.1 can you use OfflinePlayers in your requests.
      *
      * @param  player
-     *         A {@link org.bukkit.Player Player}.
+     *         A {@link org.bukkit.entity.Player Player}.
      * @param  identifier
      *         A String containing the identifier/value.
      *

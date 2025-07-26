@@ -13,6 +13,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.scheduler.BukkitScheduler;
+import pb.ajneb97.utils.ValueOfPatch;
 
 
 public class CooldownManager {
@@ -55,7 +56,7 @@ public class CooldownManager {
 					jugadores.get(i).getJugador().sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getString("arenaStartingMessage").replace("%time%", tiempo+"")));
 					String[] separados = config.getString("startCooldownSound").split(";");
 					try {
-						Sound sound = Sound.valueOf(separados[0]);
+						Sound sound = ValueOfPatch.valueOf(separados[0]);
 						jugadores.get(i).getJugador().playSound(jugadores.get(i).getJugador().getLocation(), sound, Float.valueOf(separados[1]), Float.valueOf(separados[2]));
 					}catch(Exception ex) {
 						Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', PaintballBattle.prefix+"&7Sound Name: &c"+separados[0]+" &7is not valid."));

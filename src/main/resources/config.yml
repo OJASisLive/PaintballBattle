@@ -92,15 +92,15 @@ losers_command_rewards:
 tie_command_rewards:
 - "msg %player% &aIt's a tie! Here, take this reward."
 - "paintball givecoins %player% %random_2*kills-6*kills%"
-killedBySound: "BLOCK_NOTE_BLOCK_PLING;10;0.1"
-killSound: "ENTITY_FIREWORK_ROCKET_BLAST;10;2"
-expireKillstreakSound: "BLOCK_NOTE_BLOCK_BASEDRUM;10;2"
-snowballShootSound: "ENTITY_ARROW_SHOOT;10;0.5"
-shopUnlockSound: "ENTITY_FIREWORK_ROCKET_BLAST;10;2"
-hatAbilityActivatedSound: "BLOCK_CHEST_OPEN;10;1.5"
-explosiveHatSound: "ENTITY_GENERIC_EXPLODE;10;1"
-startCooldownSound: "BLOCK_NOTE_BLOCK_PLING;10;1"
-startGameSound: "BLOCK_NOTE_BLOCK_PLING;10;2"
+killedBySound: "block.note_block.pling;10;0.1"
+killSound: "entity.firework_rocket.blast;10;2"
+expireKillstreakSound: "block.note_block.basedrum;10;2"
+snowballShootSound: "entity.arrow.shoot;10;0.5"
+shopUnlockSound: "entity.firework_rocket.blast;10;2"
+hatAbilityActivatedSound: "block.chest.open;10;1.5"
+explosiveHatSound: "entity.generic.explode;10;1"
+startCooldownSound: "block.note_block.pling;10;1"
+startGameSound: "block.note_block.pling;10;2"
 snowball_particle: "SNOW_SHOVEL"
 mysql-database:
     enabled: false
@@ -123,7 +123,7 @@ killstreaks_items:
         slot: 0
         snowballs: 32
         cost: 2
-        activateSound: "ENTITY_VILLAGER_YES;10;1"
+        activateSound: "entity.villager.yes;10;1"
     strong_arm:
         item: BEACON
         name: "&6&lStrong Arm"
@@ -137,7 +137,7 @@ killstreaks_items:
         slot: 1
         duration: 30
         cost: 3
-        activateSound: "BLOCK_ANVIL_USE;10;2"
+        activateSound: "block.anvil.use;10;2"
     triple_shoot:
         item: DIAMOND
         name: "&6&lTriple Shoot"
@@ -151,7 +151,7 @@ killstreaks_items:
         slot: 2
         duration: 30
         cost: 3
-        activateSound: "BLOCK_ANVIL_USE;10;2"
+        activateSound: "block.anvil.use;10;2"
     3_lives:
         item: WHEAT
         name: "&6&l+3 Lives"
@@ -163,7 +163,7 @@ killstreaks_items:
         - "&aClick to activate!"
         slot: 3
         cost: 4
-        activateSound: "ENTITY_BAT_TAKEOFF;10;1.5;global"
+        activateSound: "entity.bat.takeoff;10;1.5;global"
     teleport:
         item: ENDER_PEARL
         name: "&6&lTeleport"
@@ -175,7 +175,7 @@ killstreaks_items:
         - "&aClick to activate!"
         slot: 4
         cost: 8
-        activateSound: "ENTITY_ENDERMAN_TELEPORT;10;1"
+        activateSound: "entity.enderman.teleport;10;1"
     lightning:
         item: GOLDEN_AXE
         name: "&6&lLightning Strike"
@@ -189,7 +189,7 @@ killstreaks_items:
         slot: 5
         radius: 10
         cost: 12
-        activateSound: "ENTITY_LIGHTNING_BOLT_THUNDER;10;1"
+        activateSound: "entity.lightning_bolt.thunder;10;1"
     nuke:
         item: TNT
         name: "&6&lNuke"
@@ -201,8 +201,8 @@ killstreaks_items:
         - "&aClick to activate!"
         slot: 6
         cost: 25
-        activateSound: "ENTITY_WOLF_HOWL;10;2;global"
-        finalSound: "ENTITY_GENERIC_EXPLODE;10;1;global"
+        activateSound: "entity.wolf.howl;10;2;global"
+        finalSound: "entity.generic.explode;10;1;global"
     fury:
         item: REDSTONE
         name: "&6&lFury Mode"
@@ -217,7 +217,7 @@ killstreaks_items:
         slot: 7
         duration: 25
         cost: 30
-        activateSound: "BLOCK_PISTON_EXTEND;10;1.5;global"
+        activateSound: "block.piston.extend;10;1.5;global"
 hats_inventory_title: "&9&lPaintball Hats"
 hats_items:
     no_hats:

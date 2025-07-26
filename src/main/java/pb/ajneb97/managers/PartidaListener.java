@@ -8,7 +8,6 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.entity.Egg;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -20,8 +19,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -35,7 +32,6 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerEggThrowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.Inventory;
@@ -56,6 +52,7 @@ import pb.ajneb97.juego.Killstreak;
 import pb.ajneb97.juego.Partida;
 import pb.ajneb97.utils.UtilidadesItems;
 import pb.ajneb97.utils.UtilidadesOtros;
+import pb.ajneb97.utils.ValueOfPatch;
 
 public class PartidaListener implements Listener{
 
@@ -250,7 +247,7 @@ public class PartidaListener implements Listener{
 						j.getJugador().sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getString("hatAbilityActivated")));
 						String[] separados = config.getString("hatAbilityActivatedSound").split(";");
 						try {
-							Sound sound = Sound.valueOf(separados[0]);
+							Sound sound = ValueOfPatch.valueOf(separados[0]);
 							j.getJugador().playSound(j.getJugador().getLocation(), sound, Float.valueOf(separados[1]), Float.valueOf(separados[2]));
 						}catch(Exception ex) {
 							Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', PaintballBattle.prefix+"&7Sound Name: &c"+separados[0]+" &7is not valid."));
@@ -546,7 +543,7 @@ public class PartidaListener implements Listener{
 									
 									String[] separados = config.getString("killstreaks_items."+key+".activateSound").split(";");
 									try {
-										Sound sound = Sound.valueOf(separados[0]);
+										Sound sound = ValueOfPatch.valueOf(separados[0]);
 										if(separados.length >= 4) {
 											if(separados[3].equalsIgnoreCase("global")) {
 												for(JugadorPaintball player : partida.getJugadores()) {
@@ -606,7 +603,7 @@ public class PartidaListener implements Listener{
 					FileConfiguration config = plugin.getConfig();
 					String[] separados = config.getString("snowballShootSound").split(";");
 					try {
-						Sound sound = Sound.valueOf(separados[0]);
+						Sound sound = ValueOfPatch.valueOf(separados[0]);
 						jugador.playSound(jugador.getLocation(), sound, Float.valueOf(separados[1]), Float.valueOf(separados[2]));
 					}catch(Exception ex) {
 						Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', PaintballBattle.prefix+"&7Sound Name: &c"+separados[0]+" &7is not valid."));

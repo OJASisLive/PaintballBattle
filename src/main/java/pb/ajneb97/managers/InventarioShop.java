@@ -25,6 +25,7 @@ import pb.ajneb97.api.Perk;
 import pb.ajneb97.database.JugadorDatos;
 import pb.ajneb97.database.MySQL;
 import pb.ajneb97.utils.UtilidadesItems;
+import pb.ajneb97.utils.ValueOfPatch;
 
 
 public class InventarioShop implements Listener{
@@ -282,7 +283,7 @@ public class InventarioShop implements Listener{
 										jugador.sendMessage(prefix+ChatColor.translateAlternateColorCodes('&', messages.getString("perkUnlocked").replace("%name%", separados[2]))); 
 										String[] separadosSound = config.getString("shopUnlockSound").split(";");
 										try {
-											Sound sound = Sound.valueOf(separadosSound[0]);
+											Sound sound = ValueOfPatch.valueOf(separadosSound[0]);
 											jugador.playSound(jugador.getLocation(), sound, Float.valueOf(separadosSound[1]), Float.valueOf(separadosSound[2]));
 										}catch(Exception ex) {
 											Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', PaintballBattle.prefix+"&7Sound Name: &c"+separadosSound[0]+" &7is not valid."));
@@ -439,7 +440,7 @@ public class InventarioShop implements Listener{
 									jugador.sendMessage(prefix+ChatColor.translateAlternateColorCodes('&', messages.getString("hatBought").replace("%name%", shop.getString("hats_items."+key+".name")))); 
 									String[] separadosSound = config.getString("shopUnlockSound").split(";");
 									try {
-										Sound sound = Sound.valueOf(separadosSound[0]);
+										Sound sound = ValueOfPatch.valueOf(separadosSound[0]);
 										jugador.playSound(jugador.getLocation(), sound, Float.valueOf(separadosSound[1]), Float.valueOf(separadosSound[2]));
 									}catch(Exception ex) {
 										Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', PaintballBattle.prefix+"&7Sound Name: &c"+separadosSound[0]+" &7is not valid."));

@@ -1,20 +1,11 @@
 package pb.ajneb97.managers;
 
-import java.util.ArrayList;
-
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Effect;
 import org.bukkit.Location;
-import org.bukkit.Particle;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Projectile;
-import org.bukkit.entity.Snowball;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import pb.ajneb97.PaintballBattle;
-import pb.ajneb97.juego.JugadorPaintball;
-import pb.ajneb97.juego.Partida;
 import pb.ajneb97.utils.UtilidadesOtros;
 
 public class CooldownSnowballParticle {

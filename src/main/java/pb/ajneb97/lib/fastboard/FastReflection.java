@@ -1,5 +1,3 @@
-
-
 /*
  * This file is part of FastBoard, licensed under the MIT License.
  *
@@ -47,6 +45,7 @@ public final class FastReflection {
 
     private static final MethodType VOID_METHOD_TYPE = MethodType.methodType(void.class);
     private static final boolean NMS_REPACKAGED = optionalClass(NM_PACKAGE + ".network.protocol.Packet").isPresent();
+    private static final boolean MOJANG_MAPPINGS = optionalClass(NM_PACKAGE + ".network.chat.Component").isPresent();
 
     private static volatile Object theUnsafe;
 
@@ -72,8 +71,16 @@ public final class FastReflection {
         return Class.forName(nmsClassName(post1_17package, className));
     }
 
+    public static Class<?> nmsClass(String post1_17package, String spigotClass, String mojangClass) throws ClassNotFoundException {
+        return nmsClass(post1_17package, MOJANG_MAPPINGS ? mojangClass : spigotClass);
+    }
+
     public static Optional<Class<?>> nmsOptionalClass(String post1_17package, String className) {
         return optionalClass(nmsClassName(post1_17package, className));
+    }
+
+    public static Optional<Class<?>> nmsOptionalClass(String post1_17package, String spigotClass, String mojangClass) {
+        return optionalClass(nmsClassName(post1_17package, MOJANG_MAPPINGS ? mojangClass : spigotClass));
     }
 
     public static String obcClassName(String className) {
@@ -158,4 +165,3 @@ public final class FastReflection {
         Object invoke() throws Throwable;
     }
 }
-
