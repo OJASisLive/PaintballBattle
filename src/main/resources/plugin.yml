@@ -1,10 +1,9 @@
 main: pb.ajneb97.PaintballBattle
-version: 1.12.3
+version: 1.12.0
 name: PaintballBattle
 api-version: 1.13
 author: Ajneb97
-softdepend: [Multiverse-Core, HolographicDisplays, Vault, PlaceholderAPI, DecentHolograms]
-// TODO: Remove Holographic displays
+softdepend: [Multiverse-Core, Vault, PlaceholderAPI, DecentHolograms]
 
 commands:
   paintball:
