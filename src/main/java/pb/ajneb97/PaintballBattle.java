@@ -167,7 +167,8 @@ public class PaintballBattle extends JavaPlugin {
 				serverVersion = ServerVersion.v1_21_R1;
 				break;
 			default:
-				serverVersion = ServerVersion.valueOf(packageName.replace("org.bukkit.craftbukkit.", ""));
+				//serverVersion = ServerVersion.valueOf(packageName.replace("org.bukkit.craftbukkit.", ""));
+				serverVersion = ServerVersion.detect();
 		}
 	}
 	
